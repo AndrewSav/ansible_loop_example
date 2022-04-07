@@ -1,0 +1,15 @@
+- name: Test
+  hosts: localhost
+  vars:
+    apply_data:
+    - name: first
+      apply_command: docker-compose -f "{{ apply_target_path }}" up -d --force-recreate      
+      some_other_vars: bla
+      directory: ~/test1
+    - name: second
+      apply_command: bash "{{ apply_target_path }}" 
+      some_other_vars: bla
+      directory: ~/test2
+  tasks:
+  - import_role:
+      name: provision

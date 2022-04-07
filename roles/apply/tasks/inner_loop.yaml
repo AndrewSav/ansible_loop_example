@@ -1,0 +1,8 @@
+- set_fact:
+    apply_target_path: "{{ filepath }}"
+- debug:
+    msg: "item:{{ apply_target_path }}"
+- debug:
+    msg: "apply_command:{{apply_command}}"
+- debug:
+    msg: "apply_command2:{{apply_command2}}"

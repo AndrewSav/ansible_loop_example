@@ -1,0 +1,24 @@
+- debug:
+    var: name
+- debug:
+    var: apply_command
+- debug:
+    var: apply_command2
+- debug:
+    var: some_other_vars
+- debug:
+    var: directory
+- name: get list of files
+  find:
+    paths: "{{ directory }}"
+    file_type: file
+    recurse: Yes
+    patterns: "*"
+    hidden: yes
+  register: files_matched
+  failed_when: files_matched.matched == 0
+- name: execute inner loop
+  include_tasks: inner_loop.yaml
+  loop_control:
+    loop_var: filepath
+  loop: "{{ files_matched.files | flatten | sort(attribute='path') | map(attribute='path') | list }}"

@@ -1,0 +1,14 @@
+- name: apply
+  include_role:
+    name: apply
+  vars: 
+    name: "{{ item.name }}"
+    # This does not quite work
+    apply_command: "{{ item.apply_command }}"
+    # But this does
+    apply_command2: "{{ apply_data[my_idx].apply_command }}"
+    some_other_vars: "{{ item.some_other_vars }}"
+    directory: "{{ item.directory }}"
+  loop: "{{ apply_data }}"
+  loop_control:
+    index_var: my_idx
