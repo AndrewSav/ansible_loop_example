@@ -1,0 +1,8 @@
+So this is a simplified version of what I'm trying to achieve, and feedbacks on using less stupid tricks are welcome. We have only 5 short files in the repo plus example output. The idea that the "provision" role is a larger (than in the example) role that provisions a new VM and then executes the "apply" role (which is also larger than in the example) which obtains some files, run them through a templating engine and then applies them to the newly provisioned machine. Currently I have three different real-life apply commands but the number of them might grow: 1) docker-compose 2) bash script and c) nothing, just templating.
+
+So I think I finally got this working, however it is not clear why in a loop `apply_command: "{{ item.apply_command }}"` does not work, while seeming similar `apply_command2: "{{ data[my_idx].apply_command }}"` does work. Later `apply_command` looks like this `docker-compose -f \"temp value\" up -d --force-recreate` (wrong) and `apply_command2` loks like this: `docker-compose -f \"/home/andrewsav/test1/composed.yaml\" up -d --force-recreate"` (right) - as can be seen in `output.txt`. I wonder why.
+
+Also I wonder if I could get rid of useless `roles/provision/defaults/main.yaml` without this definition it refuses to run the apply outer loop.
+
+
+https://github.com/AndrewSav/ansible_loop_example
